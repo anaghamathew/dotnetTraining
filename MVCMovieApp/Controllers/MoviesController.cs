@@ -20,7 +20,7 @@ namespace MVCMovieApp.Controllers
         }
 
         // GET: Movies
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string movieGenre,string searchString)
         {
             var movies = from m in _context.Movie
                          select m;
@@ -33,7 +33,17 @@ namespace MVCMovieApp.Controllers
                 movies = movies.Where(s => s.Title.Contains(searchString));
             }
 
-            return View(await movies.ToListAsync());
+            if (!String.IsNullOrEmpty(movieGenre))
+            {
+                movies = movies.Where(x => x.Genre == movieGenre);
+            }
+
+            var movieGenrViewModel = new MovieGenrViewModel
+            {
+                Genres = new SelectList(await genreQuery.Distinct().ToListAsync()),
+                Movies = await movies.ToListAsync()
+            };
+            return View(movieGenrViewModel);
         }
 
         // GET: Movies/Details/5
@@ -65,8 +75,14 @@ namespace MVCMovieApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,ReleaseDate,Genre,Price")] Movie movie)
+        public async Task<IActionResult> Create([Bind("Id,Title,ReleaseDate,Genre,Price,LicenceDetails")] Movie movie)
         {
+           /* var licenceDetails = new LicenceDetails()
+            {
+                LicencyName="AVM",
+                Address1="Fms pvt ltd"
+            };
+            movie.LicenceDetails = licenceDetails;*/
             if (ModelState.IsValid)
             {
                 _context.Add(movie);

@@ -16,7 +16,7 @@ namespace MVCMovieApp.Data
         public DbSet<Movie> Movie { get; set; }
         public DbSet<Genr> Genr { get; set; }
 
-        
+        public DbSet<LicenceDetails> LicenceDetails { get; set; }
 
 
     }
