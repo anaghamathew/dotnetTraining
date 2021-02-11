@@ -15,6 +15,6 @@ namespace MVCMovieApp.Models
         public string Genre { get; set; }
         public decimal Price { get; set; }
 
-        public virtual LicenceDetails LicenceDetails {get;set;}
+        public virtual LicenceDetails LicenceDetails {get;set;} //one to one relation
     }
 }

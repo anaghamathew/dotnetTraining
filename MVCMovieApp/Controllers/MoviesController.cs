@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using MVCMovieApp.Controllers.filters;
 using MVCMovieApp.Data;
 using MVCMovieApp.Models;
 
@@ -13,15 +15,21 @@ namespace MVCMovieApp.Controllers
     public class MoviesController : Controller
     {
         private readonly MVCMovieContext _context;
+        private readonly ILogger<MoviesController> _logger;
 
-        public MoviesController(MVCMovieContext context)
+        public MoviesController(MVCMovieContext context, ILogger<MoviesController> logger)
         {
             _context = context;
+            _logger = logger;
         }
+       
+
 
         // GET: Movies
+      //  [AddHeader("Author", "Rick Anderson")]
         public async Task<IActionResult> Index(string movieGenre,string searchString)
         {
+            _logger.LogInformation("this is info from mylogger");
             var movies = from m in _context.Movie
                          select m;
             IQueryable<string> genreQuery = from m in _context.Movie
@@ -43,6 +51,7 @@ namespace MVCMovieApp.Controllers
                 Genres = new SelectList(await genreQuery.Distinct().ToListAsync()),
                 Movies = await movies.ToListAsync()
             };
+            ViewBag.totalMoviesCount = movies.Count();
             return View(movieGenrViewModel);
         }
 

@@ -10,11 +10,30 @@ using System.Linq;
 using System.Threading.Tasks;
 using MVCMovieApp.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
 
 namespace MVCMovieApp
 {
     public class Startup
     {
+       
+        //middle ware
+        public static void HandleMapTest1(IApplicationBuilder app)
+        {
+            app.Run(async context =>
+            {
+                await context.Response.WriteAsync("Map Test 1");
+            });
+
+        }
+        private static void HandleMapTest2(IApplicationBuilder app)
+        {
+            app.Run(async context =>
+            {
+                await context.Response.WriteAsync("Map Test 2");
+            });
+        }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -26,15 +45,26 @@ namespace MVCMovieApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddLogging();
             services.AddDbContext<MVCMovieContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MVCMovieContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Microsoft.Extensions.Logging.ILoggerFactory loggerFactory)
         {
+            app.Map("/map1", HandleMapTest1);
+
+            app.Map("/map2", HandleMapTest2);
+
+            app.Run(async context =>
+            {
+                await context.Response.WriteAsync("Hello from main pipeline.");
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                /*loggerFactory.AddConsole(Configuration.GetSection("Logging"));*/
             }
             else
             {
