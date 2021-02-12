@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVCMovieApp", "MVCMovieApp\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurentApp", "..\RestaurentApp\RestaurentApp\RestaurentApp.csproj", "{C47D08E3-B78F-4245-A572-BE0533235E97}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurentAppNew", "RestaurentAppNew\RestaurentAppNew.csproj", "{09CCE741-7A10-4BB9-9CDC-C2C1697C98BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C47D08E3-B78F-4245-A572-BE0533235E97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C47D08E3-B78F-4245-A572-BE0533235E97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C47D08E3-B78F-4245-A572-BE0533235E97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09CCE741-7A10-4BB9-9CDC-C2C1697C98BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09CCE741-7A10-4BB9-9CDC-C2C1697C98BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09CCE741-7A10-4BB9-9CDC-C2C1697C98BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09CCE741-7A10-4BB9-9CDC-C2C1697C98BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

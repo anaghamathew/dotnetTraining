@@ -12,6 +12,8 @@ using MVCMovieApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
+using MVCMovieApp.Models;
+using MVCMovieApp.Controllers.filters;
 
 namespace MVCMovieApp
 {
@@ -44,7 +46,10 @@ namespace MVCMovieApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.Configure<PositionOptions>(Configuration.GetSection("Position"));
+            services.AddScoped<MyActionFilterAttribute>();
+            services.AddControllersWithViews(options=>options.Filters.Add(typeof(MyActionFilterAttribute)));//globally applied filter
+            //to run first parmas as int.MinValue
             services.AddLogging();
             services.AddDbContext<MVCMovieContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MVCMovieContext")));
         }
@@ -52,14 +57,14 @@ namespace MVCMovieApp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Microsoft.Extensions.Logging.ILoggerFactory loggerFactory)
         {
-            app.Map("/map1", HandleMapTest1);
+           /* app.Map("/map1", HandleMapTest1);
 
             app.Map("/map2", HandleMapTest2);
 
             app.Run(async context =>
             {
                 await context.Response.WriteAsync("Hello from main pipeline.");
-            });
+            });*/
 
             if (env.IsDevelopment())
             {
@@ -83,7 +88,7 @@ namespace MVCMovieApp
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Movies}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index3}/{id?}");
             });
         }
     }

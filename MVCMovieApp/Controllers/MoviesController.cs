@@ -26,7 +26,7 @@ namespace MVCMovieApp.Controllers
 
 
         // GET: Movies
-      //  [AddHeader("Author", "Rick Anderson")]
+      
         public async Task<IActionResult> Index(string movieGenre,string searchString)
         {
             _logger.LogInformation("this is info from mylogger");

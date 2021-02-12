@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MVCMovieApp.Controllers.filters;
 using MVCMovieApp.Models;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,22 @@ namespace MVCMovieApp.Controllers
         // 
         // GET: /HelloWorld/
 
+        [AddHeader("Author", "Rick Anderson")]
         public IActionResult Index()
         {
-            return View();
+            return Content("examin headers");
         }
 
+        [ServiceFilter(typeof(MyActionFilterAttribute))]
+        public IActionResult Index2()
+        {
+            return Content("Header values by appconfiguration.");
+        }
+        [ShortCircuitingResourceFilter]
+        public IActionResult Index3()
+        {
+            return Content("Successful access to resource filter- header is set.");
+        }
         public void Privacy()
         {
 
