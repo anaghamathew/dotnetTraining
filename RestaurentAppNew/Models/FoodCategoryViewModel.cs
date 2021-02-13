@@ -9,9 +9,13 @@ namespace RestaurentAppNew.Models
     public class FoodCategoryViewModel
     {
         public List<Food> Foods { get; set; }
-        public SelectList Catgeory { get; set; }
+        public SelectList Categories { get; set; }
+
         public string FoodCategory { get; set; }
 
         public string SearchString { get; set; }
+
+        public List<Category> CategoriesList { get; set; }
+        
     }
 }

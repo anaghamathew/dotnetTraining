@@ -1,0 +1,93 @@
+﻿@model RestaurentAppNew.Models.FoodCategoryViewModel
+
+@{
+    ViewData["Title"] = "Food Item List";
+}
+
+<h1>Purchase/Order Food items</h1>
+
+<div class="container" style="float:left;">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+        <ul class="navbar-nav flex-grow-1">
+            @foreach (var item in Model.CategoriesList)
+            {
+                <li class="nav-item" style="margin-left:10px;float:left;border:1px solid blue;">
+                    <a class="nav-link text-dark" asp-action="ThankYou">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </a>
+                </li>
+
+            }
+        </ul>
+    </div>
+    @foreach (var item in Model.Foods)
+    {
+
+        <div class="card" style="width: 300px;float:left;">
+           @* <img class="card-img-top" src="..." alt="Card image cap">*@
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                <p class="card-title">@Html.DisplayFor(modelItem => item.Price)</p>
+                <a asp-action="ThankYou" class="btn btn-primary">Add to Cart</a>
+            </div>
+        </div>
+    }
+</div>
+@*
+    <form asp-controller="Purchase" asp-action="Index" method="get">
+        <p>
+            <select asp-for="MovieGenre" asp-items="Model.Genres">
+                <option value="">All</option>
+            </select>
+            Title: <input type="text" name="SearchString" />
+            <input type="submit" value="Filter" />
+        </p>
+    </form>*@
+
+    @*<table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Foods[0].Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Foods[0].Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Foods[0].Price)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Foods)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    *@

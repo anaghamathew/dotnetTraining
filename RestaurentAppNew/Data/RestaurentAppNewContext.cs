@@ -9,13 +9,19 @@ namespace RestaurentAppNew.Data
 {
     public class RestaurentAppNewContext : DbContext
     {
-        public RestaurentAppNewContext (DbContextOptions<RestaurentAppNewContext> options)
+        public RestaurentAppNewContext(DbContextOptions<RestaurentAppNewContext> options)
             : base(options)
         {
         }
-
+       /* public RestaurentAppNewContext() : base("RestaurentAppNew");
+        {
+            
+        }*/
         public DbSet<RestaurentAppNew.Models.Category> Category { get; set; }
 
         public DbSet<RestaurentAppNew.Models.Food> Food { get; set; }
+
+       /* public DbSet<CartItem> ShoppingCartItems{get;set; }
+*/   
     }
 }
