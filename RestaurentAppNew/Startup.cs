@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using RestaurentAppNew.Data;
+using Microsoft.AspNetCore.Mvc;
 
 namespace RestaurentAppNew
 {
@@ -25,10 +26,23 @@ namespace RestaurentAppNew
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            /*services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });*/
+            services.AddCors();
+            
+            //services.AddMvc.SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            /*services.Configure<MvcOptions>(options =>
+            {
+                options.EnableEndpointRouting = false;
+                
+            });*/
             services.AddControllersWithViews();
 
             services.AddDbContext<RestaurentAppNewContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("RestaurentAppNewContext")));
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,12 +58,21 @@ namespace RestaurentAppNew
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+           
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseCors(x => x
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true) // allow any origin
+                .AllowCredentials()); // allow credentials
 
+            /* app.UseCors(options => options.AllowAnyOrigin());*/
             app.UseAuthorization();
+
+            app.UseEndpoints(x => x.MapControllers());
 
             app.UseEndpoints(endpoints =>
             {

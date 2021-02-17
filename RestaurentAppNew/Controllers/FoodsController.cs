@@ -49,9 +49,9 @@ namespace RestaurentAppNew.Controllers
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id");
-            var categories = from m in _context.Category
-                         select m;
-            ViewData["Categories"] = categories;
+            var categories = (from m in _context.Category
+                         select m).ToList();
+            ViewData["ListOfCategories"] = categories;
             return View();
         }
 
@@ -86,6 +86,9 @@ namespace RestaurentAppNew.Controllers
                 return NotFound();
             }
             ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id", food.CategoryId);
+            var categories = (from m in _context.Category
+                              select m).ToList();
+            ViewData["ListOfCategories"] = categories;
             return View(food);
         }
 
