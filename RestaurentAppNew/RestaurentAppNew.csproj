@@ -12,6 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20210218044905_ingredients.cs" />
+    <Compile Remove="Migrations\20210218044905_ingredients.Designer.cs" />
     <Compile Remove="Models\CartItem.cs" />
   </ItemGroup>
 

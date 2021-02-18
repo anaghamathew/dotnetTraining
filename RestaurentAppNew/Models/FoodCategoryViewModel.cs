@@ -16,6 +16,8 @@ namespace RestaurentAppNew.Models
         public string SearchString { get; set; }
 
         public List<Category> CategoriesList { get; set; }
-        
+
+        /*public virtual Ingredients Ingredients { get; set; }*/
+
     }
 }

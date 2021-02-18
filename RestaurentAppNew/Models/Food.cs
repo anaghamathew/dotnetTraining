@@ -22,5 +22,7 @@ namespace RestaurentAppNew.Models
 
         public int CategoryId { get; set; }
         public virtual Category FoodCategory { get; set; }
+
+        /*public virtual Ingredients Ingredients { get; set; }*/
     }
 }

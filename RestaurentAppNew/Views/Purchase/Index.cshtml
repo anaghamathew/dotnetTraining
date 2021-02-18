@@ -5,16 +5,17 @@
 }
 
 <h1>Purchase/Order Food items</h1>
-
-<div class="container" style="float:left;">
+<div style="float:right;">
+    <h3>Purchased Order Total:- @ViewData["orderTotal"]<span> Rs.</span></h3>
+    <a asp-action="ViewCart">View Cart Items</a>
+</div>
+<div class="container" style="float:left; width:800px;">
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div>
-        <a asp-action="ViewCart">View Cart Items</a>
-    </div>
+    
     @*<div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
             <ul class="navbar-nav flex-grow-1">
                 @foreach (var item in Model.CategoriesList)
@@ -31,12 +32,12 @@
     @foreach (var item in Model.Foods)
     {
 
-        <div class="card" style="width: 300px;float:left;">
+        <div class="card" style="width: 300px;float:left;height:200px;">
             @* <img class="card-img-top" src="..." alt="Card image cap">*@
             <div class="card-body">
                 <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
                 <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
-                <p class="card-title">@Html.DisplayFor(modelItem => item.Price)</p>
+                <p class="card-title">@Html.DisplayFor(modelItem => item.Price)<span> Rs.</span></p>
                 <a asp-action="AddToCart" asp-route-id="@item.Id" class="btn btn-primary">Add to Cart</a>
             </div>
         </div>

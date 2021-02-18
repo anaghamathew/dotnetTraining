@@ -47,7 +47,11 @@ namespace RestaurentAppNew.Controllers
                 CategoriesList = await categories.ToListAsync(),
                 Foods = await foods.ToListAsync()
             };
-            //ViewBag.totalMoviesCount = movies.Count();
+            var PurchaseOrderListnew = GetPurchasedOrders();
+            decimal? total = decimal.Zero;
+            total = (from items in PurchaseOrderListnew
+                     select (int?)items.Quantity * items.PurchasedFood.Price).Sum();
+            ViewData["orderTotal"] = total;
             return View(foodCategoryViewModel);
         }
 
