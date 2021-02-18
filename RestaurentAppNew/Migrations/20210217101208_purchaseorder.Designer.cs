@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestaurentAppNew.Data;
 
 namespace RestaurentAppNew.Migrations
 {
     [DbContext(typeof(RestaurentAppNewContext))]
-    partial class RestaurentAppNewContextModelSnapshot : ModelSnapshot
+    [Migration("20210217101208_purchaseorder")]
+    partial class purchaseorder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

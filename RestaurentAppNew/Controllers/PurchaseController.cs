@@ -13,6 +13,8 @@ namespace RestaurentAppNew.Controllers
     public class PurchaseController : Controller
     {
         private readonly RestaurentAppNewContext _context;
+        public List<PurchaseOrder> PurchaseOrderList { get; private set; }
+        public string shoppingCartId { get; set; }
 
         public PurchaseController(RestaurentAppNewContext context)
         {
@@ -53,10 +55,71 @@ namespace RestaurentAppNew.Controllers
         {
             return View();
         }
-        /*public IActionResult Index()
+      public async Task<IActionResult> AddToCart(int id)
         {
-            return View();
-        }*/
+
+            var exisingFood = await _context.PurchaseOrder.FirstOrDefaultAsync(m => m.FoodId == id);
+
+            if (exisingFood != null)
+            {
+                exisingFood.Quantity++;
+            }
+            else
+            {
+                PurchaseOrder purchaseOrder = new PurchaseOrder()
+                {
+                    Customer = "anagha",
+                    Quantity = 1,
+                    FoodId = id,
+                   
+                    DateCreated = DateTime.UtcNow
+                };
+
+                _context.Add(purchaseOrder);
+            }
+           
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult ViewCart()
+        {
+            var PurchaseOrderListnew = GetPurchasedOrders();
+            decimal? total = decimal.Zero;
+            total = (from items in PurchaseOrderListnew
+                               select (int?)items.Quantity * items.PurchasedFood.Price).Sum();
+            ViewData["orderTotal"] = total;
+            return View(PurchaseOrderListnew);
+        }
+
+        public List<PurchaseOrder> GetPurchasedOrders()
+        {
+         
+            var restaurentAppNewContextCurent = _context.PurchaseOrder.Include(f => f.PurchasedFood).ToList();
+          return restaurentAppNewContextCurent.Where(p => p.Customer == "anagha").ToList();
+        }
+       
+        public async Task<IActionResult> Remove(int? id)
+
+          {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var orderFood = await _context.PurchaseOrder.FindAsync(id);
+           
+            if (orderFood.Quantity > 1)
+            {
+                orderFood.Quantity--;
+               
+            }
+            else {
+                _context.PurchaseOrder.Remove(orderFood);
+            }
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(ViewCart));
+        }
     }
 
     

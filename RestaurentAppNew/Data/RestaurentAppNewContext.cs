@@ -21,7 +21,10 @@ namespace RestaurentAppNew.Data
 
         public DbSet<RestaurentAppNew.Models.Food> Food { get; set; }
 
-       /* public DbSet<CartItem> ShoppingCartItems{get;set; }
-*/   
+        public DbSet<RestaurentAppNew.Models.PurchaseOrder> PurchaseOrder { get; set; }
+
+
+        /* public DbSet<CartItem> ShoppingCartItems{get;set; }
+ */
     }
 }

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<RestaurentAppNew.Models.PurchaseOrder>
+
+@{
+    ViewData["Title"] = "PurchasedOrder";
+    <div>
+        <a asp-action="Index">Purchase More...</a>
+    </div>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PurchasedFood.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PurchasedFood.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchasedFood.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchasedFood.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+
+                <td>
+                    <a asp-action="Remove" asp-route-id="@item.Id">Remove</a> |
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    Order total :-  @ViewData["orderTotal"]
+</div>
