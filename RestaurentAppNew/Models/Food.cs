@@ -10,7 +10,7 @@ namespace RestaurentAppNew.Models
     {
         public int Id { get; set; }
         [Required]
-       
+
         public string Name { get; set; }
         [Required]
         public string Description { get; set; }
@@ -23,6 +23,9 @@ namespace RestaurentAppNew.Models
         public int CategoryId { get; set; }
         public virtual Category FoodCategory { get; set; }
 
-        /*public virtual Ingredients Ingredients { get; set; }*/
+        public int? IngredientsId { get; set; }
+
+        public virtual Ingredients Ingredients { get; set; }
     }
+   
 }

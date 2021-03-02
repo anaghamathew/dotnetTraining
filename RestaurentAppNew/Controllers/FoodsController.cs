@@ -22,7 +22,7 @@ namespace RestaurentAppNew.Controllers
         // GET: Foods
         public async Task<IActionResult> Index()
         {
-            var restaurentAppNewContext = _context.Food.Include(f => f.FoodCategory);
+            var restaurentAppNewContext = _context.Food.Include(f => f.FoodCategory).Include(f => f.Ingredients);
             return View(await restaurentAppNewContext.ToListAsync());
         }
 
@@ -36,6 +36,7 @@ namespace RestaurentAppNew.Controllers
 
             var food = await _context.Food
                 .Include(f => f.FoodCategory)
+                 .Include(p =>p.Ingredients)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (food == null)
             {
@@ -60,7 +61,7 @@ namespace RestaurentAppNew.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,Quantity,CategoryId")] Food food)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,Quantity,CategoryId,Ingredients")] Food food)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +98,7 @@ namespace RestaurentAppNew.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Quantity,CategoryId")] Food food)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Quantity,CategoryId,Ingredients")] Food food)
         {
             if (id != food.Id)
             {
@@ -162,5 +163,7 @@ namespace RestaurentAppNew.Controllers
         {
             return _context.Food.Any(e => e.Id == id);
         }
+
+        
     }
 }

@@ -14,11 +14,18 @@
   <ItemGroup>
     <Compile Remove="Migrations\20210218044905_ingredients.cs" />
     <Compile Remove="Migrations\20210218044905_ingredients.Designer.cs" />
+    <Compile Remove="Migrations\20210218073245_ingredients.cs" />
+    <Compile Remove="Migrations\20210218073245_ingredients.Designer.cs" />
+    <Compile Remove="Migrations\20210218074935_ingredientsnew.cs" />
+    <Compile Remove="Migrations\20210218074935_ingredientsnew.Designer.cs" />
+    <Compile Remove="Migrations\20210301050334_timestampadded.cs" />
+    <Compile Remove="Migrations\20210301050334_timestampadded.Designer.cs" />
     <Compile Remove="Models\CartItem.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.11">

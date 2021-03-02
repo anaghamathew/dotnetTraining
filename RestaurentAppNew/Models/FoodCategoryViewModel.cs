@@ -17,6 +17,7 @@ namespace RestaurentAppNew.Models
 
         public List<Category> CategoriesList { get; set; }
 
+
         /*public virtual Ingredients Ingredients { get; set; }*/
 
     }

@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using RestaurentAppNew.Data;
 using Microsoft.AspNetCore.Mvc;
+using RestaurentAppNew.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace RestaurentAppNew
 {
@@ -42,7 +44,10 @@ namespace RestaurentAppNew
 
             services.AddDbContext<RestaurentAppNewContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("RestaurentAppNewContext")));
-           
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+         .AddEntityFrameworkStores<RestaurentAppNewContext>().AddDefaultTokenProviders();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,7 +66,7 @@ namespace RestaurentAppNew
            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseAuthentication();
             app.UseRouting();
             app.UseCors(x => x
                 .AllowAnyMethod()
@@ -72,13 +77,13 @@ namespace RestaurentAppNew
             /* app.UseCors(options => options.AllowAnyOrigin());*/
             app.UseAuthorization();
 
-            app.UseEndpoints(x => x.MapControllers());
+           /* app.UseEndpoints(x => x.MapControllers());*/
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Categories}/{action=Index}/{id?}");
+                    pattern: "{controller=Purchase}/{action=Index}/{id?}");
             });
         }
     }

@@ -30,7 +30,7 @@ namespace RestaurentAppNew.Controllers
             {
                 categories = categories.Where(s => s.Name.Contains(SearchString));
             }
-            Category = await categories.ToListAsync();
+            Category = await categories.Distinct().ToListAsync();
             return View(Category);
         }
 

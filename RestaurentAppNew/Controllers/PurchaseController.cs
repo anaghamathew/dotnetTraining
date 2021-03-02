@@ -15,6 +15,7 @@ namespace RestaurentAppNew.Controllers
         private readonly RestaurentAppNewContext _context;
         public List<PurchaseOrder> PurchaseOrderList { get; private set; }
         public string shoppingCartId { get; set; }
+        
 
         public PurchaseController(RestaurentAppNewContext context)
         {
@@ -48,10 +49,17 @@ namespace RestaurentAppNew.Controllers
                 Foods = await foods.ToListAsync()
             };
             var PurchaseOrderListnew = GetPurchasedOrders();
+           
             decimal? total = decimal.Zero;
             total = (from items in PurchaseOrderListnew
                      select (int?)items.Quantity * items.PurchasedFood.Price).Sum();
+
+            var avgAge = (from items in PurchaseOrderListnew select items.PurchasedFood.Price).Average();
+            var avgAgeee = (from items in PurchaseOrderListnew select items).Average(e=>e.PurchasedFood.Price);
             ViewData["orderTotal"] = total;
+            ViewData["avgAge"] = avgAge;
+
+
             return View(foodCategoryViewModel);
         }
 
@@ -59,7 +67,8 @@ namespace RestaurentAppNew.Controllers
         {
             return View();
         }
-      public async Task<IActionResult> AddToCart(int id)
+        
+        public async Task<IActionResult> AddToCart(int id)
         {
 
             var exisingFood = await _context.PurchaseOrder.FirstOrDefaultAsync(m => m.FoodId == id);

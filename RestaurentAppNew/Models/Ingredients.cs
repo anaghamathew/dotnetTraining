@@ -8,7 +8,9 @@ namespace RestaurentAppNew.Models
     public class Ingredients
     {
         public int Id { get; set; }
-        public string Details { get; set; }
+        public string Recipe { get; set; }
+
+        public Food food { get; set; }
 
     }
 }
